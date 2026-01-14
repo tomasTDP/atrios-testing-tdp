@@ -1,0 +1,69 @@
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+```
+
+4. Scroll abajo y click **"Commit new file"**
+
+---
+
+### **Paso 3: Vercel auto-redeploya**
+
+- Vercel detecta el commit automáticamente
+- Empieza un nuevo deploy (tarda ~2 min)
+- Ve a tu dashboard de Vercel para ver el progreso
+
+---
+
+## **SI AÚN NO FUNCIONA - Verifica la build config:**
+
+### **En Vercel Dashboard:**
+
+1. Ve a tu proyecto en [vercel.com/dashboard](https://vercel.com/dashboard)
+2. Click en tu proyecto **"atrios-onboarding"**
+3. Click en **"Settings"**
+4. Click en **"General"**
+5. Verifica que:
+```
+Framework Preset: Vite
+Build Command: npm run build
+Output Directory: dist
+Install Command: npm install
+```
+
+Si algo está mal, corrígelo y click **"Save"**
+
+---
+
+### **Luego fuerza un redeploy:**
+
+1. Ve a **"Deployments"** tab
+2. Click en los 3 puntos "..." del último deployment
+3. Click **"Redeploy"**
+
+---
+
+## **ALTERNATIVA - Si nada funciona:**
+
+### **Prueba cambiando el router a HashRouter temporalmente:**
+
+Dile a Claude Code:
+```
+The Vercel deployment is showing 404 errors. As a temporary fix, change from BrowserRouter to HashRouter in the app.
+
+In main.tsx or App.tsx, change:
+- import { BrowserRouter } from 'react-router-dom'
++ import { HashRouter } from 'react-router-dom'
+
+And wrap with:
+- <BrowserRouter>
++ <HashRouter>
+
+This uses # in URLs (e.g. https://site.com/#/signup) which works without server configuration.
+
+Once this works, we can revert to BrowserRouter after adding proper vercel.json.
